@@ -13,10 +13,13 @@ public class Nano {
 
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String command = scanner.nextLine();
+        String[] tasks = new String[100];
+        int taskCount = 0;
 
-            if (command.equals("bye")) {
+        while (true) {
+            String prompt = scanner.nextLine();
+
+            if (prompt.equals("bye")) {
                 System.out.println(
                         "██████╗ ██╗   ██╗███████╗\n" +
                                 "██╔══██╗╚██╗ ██╔╝██╔════╝\n" +
@@ -27,9 +30,19 @@ public class Nano {
                 );
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+
+            } else if (prompt.equals("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                     System.out.println((i + 1) + ". " + tasks[i]);
+                }
+
+            } else {
+                tasks[taskCount] = prompt;
+                taskCount++;
+                System.out.println("added: " + prompt);
             }
 
-            System.out.println(command);
+            System.out.println(prompt);
         }
 
         scanner.close();

@@ -13,13 +13,13 @@ public class Nano {
 
         Scanner scanner = new Scanner(System.in);
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         while (true) {
-            String prompt = scanner.nextLine();
+            String task = scanner.nextLine();
 
-            if (prompt.equals("bye")) {
+            if (task.equals("bye")) {
                 System.out.println(
                         "██████╗ ██╗   ██╗███████╗\n" +
                                 "██╔══██╗╚██╗ ██╔╝██╔════╝\n" +
@@ -31,18 +31,37 @@ public class Nano {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
 
-            } else if (prompt.equals("list")) {
+            } else if (task.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
+
                 for (int i = 0; i < taskCount; i++) {
-                     System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + "." + tasks[i]);
                 }
 
-            } else {
-                tasks[taskCount] = prompt;
-                taskCount++;
-                System.out.println("added: " + prompt);
-            }
+            } else if (task.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(task.substring(5));
+                Task t = tasks[taskNumber - 1];
 
-            System.out.println(prompt);
+                t.markDone();
+
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + t);
+
+            } else if (task.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(task.substring(7));
+                Task t = tasks[taskNumber - 1];
+
+                t.markUndone();
+
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + t);
+
+            } else {
+                tasks[taskCount] = new Task(task);
+                taskCount++;
+
+                System.out.println("added: " + task);
+            }
         }
 
         scanner.close();

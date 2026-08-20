@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Nano {
     public static void main(String[] args) {
@@ -13,8 +14,7 @@ public class Nano {
 
         Scanner scanner = new Scanner(System.in);
 
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             String task = scanner.nextLine();
@@ -35,8 +35,8 @@ public class Nano {
                 } else if (task.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
 
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
 
                 } else if (task.startsWith("mark ") || task.equals("mark")) {
@@ -48,11 +48,11 @@ public class Nano {
                         throw new NanoException("The task number must be a number.");
                     }
 
-                    if (taskNumber < 1 || taskNumber > taskCount) {
+                    if (taskNumber < 1 || taskNumber > tasks.size()) {
                         throw new NanoException("That task number does not exist.");
                     }
 
-                    Task t = tasks[taskNumber - 1];
+                    Task t = tasks.get(taskNumber - 1);
 
                     t.markDone();
 
@@ -68,26 +68,44 @@ public class Nano {
                         throw new NanoException("The task number must be a number.");
                     }
 
-                    if (taskNumber < 1 || taskNumber > taskCount) {
+                    if (taskNumber < 1 || taskNumber > tasks.size()) {
                         throw new NanoException("That task number does not exist.");
                     }
 
-                    Task t = tasks[taskNumber - 1];
+                    Task t = tasks.get(taskNumber - 1);
 
                     t.markUndone();
 
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + t);
 
+                } else if (task.startsWith("delete ") || task.equals("delete")) {
+                    int taskNumber;
+
+                    try {
+                        taskNumber = Integer.parseInt(task.substring(6).trim());
+                    } catch (NumberFormatException e) {
+                        throw new NanoException("The task number must be a number.");
+                    }
+
+                    if (taskNumber < 1 || taskNumber > tasks.size()) {
+                        throw new NanoException("That task number does not exist.");
+                    }
+
+                    Task deletedTask = tasks.remove(taskNumber - 1);
+
+                    System.out.println("Got it. Removing task from list:");
+                    System.out.println("  " + deletedTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
                 } else if (task.startsWith("todo ") || task.equals("todo")) {
                     String description = task.substring(4).trim();
 
-                    tasks[taskCount] = new Todo(description);
-                    taskCount++;
+                    tasks.add(new Todo(description));
 
                     System.out.println("Got it. Adding todo:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else if (task.startsWith("deadline ") || task.equals("deadline")) {
                     String input = task.substring(8).trim();
@@ -105,18 +123,17 @@ public class Nano {
                         by = input.substring(separator + 3).trim();
                     }
 
-                    tasks[taskCount] = new Deadline(description, by);
-                    taskCount++;
+                    tasks.add(new Deadline(description, by));
 
                     System.out.println("Got it. Adding deadline:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else if (task.startsWith("event ") || task.equals("event")) {
                     String input = task.substring(5).trim();
 
-                    int fromIndex = input.indexOf("/from ");
-                    int toIndex = input.indexOf("/to ");
+                    int fromIndex = input.indexOf("/from");
+                    int toIndex = input.indexOf("/to");
 
                     String description;
                     String from;
@@ -138,12 +155,11 @@ public class Nano {
                         }
                     }
 
-                    tasks[taskCount] = new Event(description, from, to);
-                    taskCount++;
+                    tasks.add(new Event(description, from, to));
 
                     System.out.println("Got it. Adding event:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else {
                     throw new NanoException("What do you mean?");

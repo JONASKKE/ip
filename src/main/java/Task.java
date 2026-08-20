@@ -2,9 +2,13 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String description) throws NanoException {
+        this.description = description.trim();
         this.isDone = false;
+
+        if (this.description.isEmpty()) {
+            throw new NanoException("The description cannot be empty.");
+        }
     }
 
     public void markDone() {

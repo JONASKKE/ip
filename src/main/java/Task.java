@@ -15,20 +15,16 @@ public class Task {
         isDone = false;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     public String getDescription() {
         return description;
     }
 
+    public String getStatusIcon() {
+        return isDone ? "[X]" : "[ ]";
+    }
+
     @Override
     public String toString() {
-        if (isDone) {
-            return "[X] " + description;
-        } else {
-            return "[ ] " + description;
-        }
+        return getStatusIcon() + " " + getDescription();
     }
 }

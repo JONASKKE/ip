@@ -56,6 +56,48 @@ public class Nano {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + t);
 
+            } else if (task.startsWith("todo ")) {
+                String description = task.substring(5);
+
+                tasks[taskCount] = new Todo(description);
+                taskCount++;
+
+                System.out.println("Got it. Adding todo:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+            } else if (task.startsWith("deadline ")) {
+                String input = task.substring(9);
+
+                int separator = input.indexOf(" /by ");
+
+                String description = input.substring(0, separator);
+                String by = input.substring(separator + 5);
+
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+
+                System.out.println("Got it. Adding deadline:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+            } else if (task.startsWith("event ")) {
+                String input = task.substring(6);
+
+                int fromIndex = input.indexOf(" /from ");
+                int toIndex = input.indexOf(" /to ");
+
+                String description = input.substring(0, fromIndex).trim();
+                String from = input.substring(fromIndex + 7, toIndex).trim();
+                String to = input.substring(toIndex + 4).trim();
+
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+
+                System.out.println("Got it. Adding event:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+
             } else {
                 tasks[taskCount] = new Task(task);
                 taskCount++;

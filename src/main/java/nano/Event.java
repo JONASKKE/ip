@@ -1,7 +1,20 @@
+package nano;
+
+/**
+ * Represents a task that takes place between a specified start and end time.
+ */
 public class Event extends Task{
     private String from;
     private String to;
 
+    /**
+     * Creates an event task with the specified description, start time, and end time.
+     *
+     * @param description description of the event.
+     * @param from start date or time of the event.
+     * @param to end date or time of the event.
+     * @throws NanoException if the description, start time, or end time is empty.
+     */
     public Event(String description, String from, String to) throws NanoException {
         super(description);
 
@@ -15,6 +28,14 @@ public class Event extends Task{
 
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String toStorageString() {
+        return "E | " + (isDone() ? "1" : "0")
+                + " | " + getDescription()
+                + " | " + from
+                + " | " + to;
     }
 
     @Override

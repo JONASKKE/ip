@@ -1,7 +1,20 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+package nano;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Runs the Nano chatbot and handles user commands.
+ */
 public class Nano {
+    /**
+     * Starts the Nano chatbot and processes user commands.
+     *
+     * @param args command-line arguments.
+     * @throws NanoException if an error occurs while loading or saving tasks.
+     */
+    private static final String DATA_FILE = "./data/nano.txt";
+
     public static void main(String[] args) {
         String banner = "NN   NN   AAA   NN   NN   OOO \n"
                 + "NNN  NN  AA AA  NNN  NN  OO OO\n"
@@ -14,13 +27,21 @@ public class Nano {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(DATA_FILE);
+        ArrayList<Task> tasks;
+
+        try {
+            tasks = storage.load();
+        } catch (NanoException e) {
+            System.out.println("Oops! " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
 
         while (true) {
-            String task = scanner.nextLine();
+            String command = scanner.nextLine();
 
             try {
-                if (task.equals("bye")) {
+                if (command.equals("bye")) {
                     System.out.println(
                             "██████╗ ██╗   ██╗███████╗\n" +
                                     "██╔══██╗╚██╗ ██╔╝██╔════╝\n" +
@@ -32,18 +53,18 @@ public class Nano {
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
 
-                } else if (task.equals("list")) {
+                } else if (command.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
 
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + "." + tasks.get(i));
                     }
 
-                } else if (task.startsWith("mark ") || task.equals("mark")) {
+                } else if (command.startsWith("mark ") || command.equals("mark")) {
                     int taskNumber;
 
                     try {
-                        taskNumber = Integer.parseInt(task.substring(4).trim());
+                        taskNumber = Integer.parseInt(command.substring(4).trim());
                     } catch (NumberFormatException e) {
                         throw new NanoException("The task number must be a number.");
                     }
@@ -55,15 +76,16 @@ public class Nano {
                     Task t = tasks.get(taskNumber - 1);
 
                     t.markDone();
+                    storage.save(tasks);
 
                     System.out.println("Keep up the good work! I've marked this task as done:");
                     System.out.println("  " + t);
 
-                } else if (task.startsWith("unmark ")  || task.equals("unmark")) {
+                } else if (command.startsWith("unmark ") || command.equals("unmark")) {
                     int taskNumber;
 
                     try {
-                        taskNumber = Integer.parseInt(task.substring(6).trim());
+                        taskNumber = Integer.parseInt(command.substring(6).trim());
                     } catch (NumberFormatException e) {
                         throw new NanoException("The task number must be a number.");
                     }
@@ -75,15 +97,16 @@ public class Nano {
                     Task t = tasks.get(taskNumber - 1);
 
                     t.markUndone();
+                    storage.save(tasks);
 
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + t);
 
-                } else if (task.startsWith("delete ") || task.equals("delete")) {
+                } else if (command.startsWith("delete ") || command.equals("delete")) {
                     int taskNumber;
 
                     try {
-                        taskNumber = Integer.parseInt(task.substring(6).trim());
+                        taskNumber = Integer.parseInt(command.substring(6).trim());
                     } catch (NumberFormatException e) {
                         throw new NanoException("The task number must be a number.");
                     }
@@ -93,22 +116,24 @@ public class Nano {
                     }
 
                     Task deletedTask = tasks.remove(taskNumber - 1);
+                    storage.save(tasks);
 
                     System.out.println("Got it. Removing task from list:");
                     System.out.println("  " + deletedTask);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                } else if (task.startsWith("todo ") || task.equals("todo")) {
-                    String description = task.substring(4).trim();
+                } else if (command.startsWith("todo ") || command.equals("todo")) {
+                    String description = command.substring(4).trim();
 
                     tasks.add(new Todo(description));
+                    storage.save(tasks);
 
                     System.out.println("Got it. Adding todo:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("  " + tasks.getLast());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                } else if (task.startsWith("deadline ") || task.equals("deadline")) {
-                    String input = task.substring(8).trim();
+                } else if (command.startsWith("deadline ") || command.equals("deadline")) {
+                    String input = command.substring(8).trim();
 
                     int separator = input.indexOf("/by");
 
@@ -124,13 +149,14 @@ public class Nano {
                     }
 
                     tasks.add(new Deadline(description, by));
+                    storage.save(tasks);
 
                     System.out.println("Got it. Adding deadline:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("  " + tasks.getLast());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                } else if (task.startsWith("event ") || task.equals("event")) {
-                    String input = task.substring(5).trim();
+                } else if (command.startsWith("event ") || command.equals("event")) {
+                    String input = command.substring(5).trim();
 
                     int fromIndex = input.indexOf("/from");
                     int toIndex = input.indexOf("/to");
@@ -156,16 +182,17 @@ public class Nano {
                     }
 
                     tasks.add(new Event(description, from, to));
+                    storage.save(tasks);
 
                     System.out.println("Got it. Adding event:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("  " + tasks.getLast());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else {
                     throw new NanoException("What do you mean?");
                 }
             } catch (NanoException e) {
-                System.out.println("HUH?! " + e.getMessage());
+                System.out.println("Oops! " + e.getMessage());
             }
         }
         scanner.close();

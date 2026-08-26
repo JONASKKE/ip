@@ -1,7 +1,5 @@
 package nano;
 
-import java.util.Scanner;
-
 /**
  * Runs the Nano chatbot and handles user commands.
  */
@@ -15,16 +13,9 @@ public class Nano {
      * @throws NanoException if an error occurs while loading or saving tasks.
      */
     public static void main(String[] args) {
-        String banner = "NN   NN   AAA   NN   NN   OOO \n"
-                + "NNN  NN  AA AA  NNN  NN  OO OO\n"
-                + "NN N NN AA   AA NN N NN OO  OO\n"
-                + "NN  NNN AAAAAAA NN  NNN OO  OO\n"
-                + "NN   NN AA   AA NN   NN  OOO \n";
-        System.out.println(banner);
-        System.out.println("Hello! I'm Nano.");
-        System.out.println("How may i assist you?");
+        Ui ui = new Ui();
 
-        Scanner scanner = new Scanner(System.in);
+        ui.showWelcome();
 
         Storage storage = new Storage(DATA_FILE);
         TaskList tasks;
@@ -32,32 +23,20 @@ public class Nano {
         try {
             tasks = storage.load();
         } catch (NanoException e) {
-            System.out.println("Oops! " + e.getMessage());
+            ui.showMessage("Oops! " + e.getMessage());
             tasks = new TaskList();
         }
 
         while (true) {
-            String command = scanner.nextLine();
+            String command = ui.readCommand();
 
             try {
                 if (command.equals("bye")) {
-                    System.out.println(
-                            "██████╗ ██╗   ██╗███████╗\n" +
-                                    "██╔══██╗╚██╗ ██╔╝██╔════╝\n" +
-                                    "██████╔╝ ╚████╔╝ █████╗  \n" +
-                                    "██╔══██╗  ╚██╔╝  ██╔══╝  \n" +
-                                    "██████╔╝   ██║   ███████╗\n" +
-                                    "╚═════╝    ╚═╝   ╚══════╝"
-                    );
-                    System.out.println("Bye. Hope to see you again soon!");
+                    ui.showGoodbye();
                     break;
 
                 } else if (command.equals("list")) {
-                    System.out.println("Here are the tasks in your list:");
-
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + "." + tasks.get(i));
-                    }
+                    ui.showTasks(tasks);
 
                 } else if (command.startsWith("mark ") || command.equals("mark")) {
                     int taskNumber;
@@ -77,8 +56,7 @@ public class Nano {
                     t.markDone();
                     storage.save(tasks);
 
-                    System.out.println("Keep up the good work! I've marked this task as done:");
-                    System.out.println("  " + t);
+                    ui.showTaskMarked(t);
 
                 } else if (command.startsWith("unmark ") || command.equals("unmark")) {
                     int taskNumber;
@@ -98,8 +76,7 @@ public class Nano {
                     t.markUndone();
                     storage.save(tasks);
 
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + t);
+                    ui.showTaskUnmarked(t);
 
                 } else if (command.startsWith("delete ") || command.equals("delete")) {
                     int taskNumber;
@@ -117,9 +94,7 @@ public class Nano {
                     Task deletedTask = tasks.remove(taskNumber - 1);
                     storage.save(tasks);
 
-                    System.out.println("Got it. Removing task from list:");
-                    System.out.println("  " + deletedTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showTaskDeleted(deletedTask, tasks.size());
 
                 } else if (command.startsWith("todo ") || command.equals("todo")) {
                     String description = command.substring(4).trim();
@@ -127,9 +102,7 @@ public class Nano {
                     tasks.add(new Todo(description));
                     storage.save(tasks);
 
-                    System.out.println("Got it. Adding todo:");
-                    System.out.println("  " + tasks.getLast());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showTaskAdded(tasks.getLast(), tasks.size());
 
                 } else if (command.startsWith("deadline ") || command.equals("deadline")) {
                     String input = command.substring(8).trim();
@@ -150,9 +123,7 @@ public class Nano {
                     tasks.add(new Deadline(description, by));
                     storage.save(tasks);
 
-                    System.out.println("Got it. Adding deadline:");
-                    System.out.println("  " + tasks.getLast());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showTaskAdded(tasks.getLast(), tasks.size());
 
                 } else if (command.startsWith("event ") || command.equals("event")) {
                     String input = command.substring(5).trim();
@@ -183,17 +154,15 @@ public class Nano {
                     tasks.add(new Event(description, from, to));
                     storage.save(tasks);
 
-                    System.out.println("Got it. Adding event:");
-                    System.out.println("  " + tasks.getLast());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    ui.showTaskAdded(tasks.getLast(), tasks.size());
 
                 } else {
                     throw new NanoException("What do you mean?");
                 }
             } catch (NanoException e) {
-                System.out.println("Oops! " + e.getMessage());
+                ui.showMessage("Oops! " + e.getMessage());
             }
         }
-        scanner.close();
+        ui.close();
     }
 }

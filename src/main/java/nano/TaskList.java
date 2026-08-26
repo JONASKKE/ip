@@ -63,6 +63,36 @@ public class TaskList {
     }
 
     /**
+     * Returns the task corresponding to the given task number.
+     *
+     * @param taskNumber user-visible task number, starting from 1.
+     * @return the task at the specified task number.
+     * @throws NanoException if the task number is invalid or out of range.
+     */
+    public Task getTask(int taskNumber) throws NanoException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new NanoException("That task number does not exist.");
+        }
+
+        return tasks.get(taskNumber - 1);
+    }
+
+    /**
+     * Deletes the task corresponding to the given task number.
+     *
+     * @param taskNumber user-visible task number, starting from 1.
+     * @return the deleted task.
+     * @throws NanoException if the task number is invalid or out of range.
+     */
+    public Task deleteTask(int taskNumber) throws NanoException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new NanoException("That task number does not exist.");
+        }
+
+        return tasks.remove(taskNumber - 1);
+    }
+
+    /**
      * Returns all tasks in the list.
      *
      * @return the list of tasks.

@@ -1,10 +1,13 @@
 package nano;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a task that must be completed by a specified date or time.
  */
-public class Deadline extends Task{
-    private String by;
+public class Deadline extends Task {
+    private LocalDateTime by;
 
     /**
      * Creates a deadline task with the specified description and deadline.
@@ -20,19 +23,28 @@ public class Deadline extends Task{
             throw new NanoException("The /by date of a deadline cannot be empty.");
         }
 
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(
+                    by.trim(),
+                    DateTimeUtil.STORAGE_FORMATTER
+            );
+        } catch (DateTimeParseException e) {
+            throw new NanoException("The deadline date must be in yyyy-mm-dd HHmm format.");
+        }
     }
 
     @Override
     public String toStorageString() {
         return "D | " + (isDone() ? "1" : "0")
                 + " | " + getDescription()
-                + " | " + by;
+                + " | " + DateTimeUtil.formatForStorage(by);
     }
+
 
     @Override
     public String toString() {
-        return "[D]" + getStatusIcon() + " " + getDescription()
-                + " (by: " + by + ")";
+        return "[D]" + getStatusIcon()
+                + " " + getDescription()
+                + " (by: " + DateTimeUtil.formatForDisplay(by) + ")";
     }
 }

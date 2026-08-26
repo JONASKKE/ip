@@ -1,6 +1,5 @@
 package nano;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -28,13 +27,13 @@ public class Nano {
         Scanner scanner = new Scanner(System.in);
 
         Storage storage = new Storage(DATA_FILE);
-        ArrayList<Task> tasks;
+        TaskList tasks;
 
         try {
             tasks = storage.load();
         } catch (NanoException e) {
             System.out.println("Oops! " + e.getMessage());
-            tasks = new ArrayList<>();
+            tasks = new TaskList();
         }
 
         while (true) {

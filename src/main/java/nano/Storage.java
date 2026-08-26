@@ -28,11 +28,11 @@ public class Storage {
      * @return The tasks loaded from the data file.
      * @throws NanoException If the data file cannot be read.
      */
-    public ArrayList<Task> load() throws NanoException {
+    public TaskList load() throws NanoException {
         ArrayList<Task> tasks = new ArrayList<>();
 
         if (!Files.exists(filePath)) {
-            return tasks;
+            return new TaskList(tasks);
         }
 
         try {
@@ -78,7 +78,7 @@ public class Storage {
             throw new NanoException("Unable to load tasks.");
         }
 
-        return tasks;
+        return new TaskList(tasks);
     }
 
     /**
@@ -87,7 +87,7 @@ public class Storage {
      * @param tasks tasks to save.
      * @throws NanoException if the tasks cannot be saved.
      */
-    public void save(ArrayList<Task> tasks) throws NanoException {
+    public void save(TaskList tasks) throws NanoException {
         try {
             Path parent = filePath.getParent();
 
@@ -97,7 +97,7 @@ public class Storage {
 
             ArrayList<String> lines = new ArrayList<>();
 
-            for (Task task : tasks) {
+            for (Task task : tasks.getTasks()) {
                 lines.add(task.toStorageString());
             }
 

@@ -29,10 +29,10 @@ public class Storage {
      * @throws NanoException If the data file cannot be read.
      */
     public TaskList load() throws NanoException {
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskList tasks = new TaskList();
 
         if (!Files.exists(filePath)) {
-            return new TaskList(tasks);
+            return tasks;
         }
 
         try {
@@ -78,7 +78,7 @@ public class Storage {
             throw new NanoException("Unable to load tasks.");
         }
 
-        return new TaskList(tasks);
+        return tasks;
     }
 
     /**

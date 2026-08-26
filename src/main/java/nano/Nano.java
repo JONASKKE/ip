@@ -7,14 +7,14 @@ import java.util.Scanner;
  * Runs the Nano chatbot and handles user commands.
  */
 public class Nano {
+    private static final String DATA_FILE = "./data/nano.txt";
+
     /**
      * Starts the Nano chatbot and processes user commands.
      *
      * @param args command-line arguments.
      * @throws NanoException if an error occurs while loading or saving tasks.
      */
-    private static final String DATA_FILE = "./data/nano.txt";
-
     public static void main(String[] args) {
         String banner = "NN   NN   AAA   NN   NN   OOO \n"
                 + "NNN  NN  AA AA  NNN  NN  OO OO\n"

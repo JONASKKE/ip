@@ -5,6 +5,7 @@ import nano.task.Event;
 import nano.task.Task;
 import nano.task.TaskList;
 import nano.task.Todo;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -141,6 +142,19 @@ public class Ui {
                         + "╚═════╝    ╚═╝   ╚══════╝"
         );
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    /**
+     * Displays the tasks that match a search keyword.
+     *
+     * @param tasks matching tasks to display.
+     */
+    public void showMatchingTasks(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
     }
 
     /**

@@ -110,4 +110,23 @@ public class TaskList {
     public Task getLast() {
         return tasks.get(tasks.size() - 1);
     }
+
+    /**
+     * Finds tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword keyword to search for.
+     * @return a task list containing all matching tasks.
+     */
+    public TaskList find(String keyword) {
+        TaskList matchingTasks = new TaskList();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase()
+                    .contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
 }

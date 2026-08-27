@@ -47,6 +47,9 @@ public class Parser {
         } else if (command.startsWith("event ")
                 || command.equals("event")) {
             return CommandType.EVENT;
+        } else if (command.startsWith("find ")
+                || command.equals("find")) {
+            return CommandType.FIND;
         }
 
         return CommandType.UNKNOWN;
@@ -129,5 +132,22 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new NanoException("The task number must be a number.");
         }
+    }
+
+    /**
+     * Extracts the keyword from a find command.
+     *
+     * @param command user command containing a keyword.
+     * @return the keyword to find.
+     * @throws NanoException if no keyword provided.
+     */
+    public String parseFindKeyword(String command) throws NanoException {
+        String keyword = command.substring(4).trim();
+
+        if (keyword.isEmpty()) {
+            throw new NanoException("Please provide a keyword to search for.");
+        }
+
+        return keyword;
     }
 }

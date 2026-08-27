@@ -4,6 +4,7 @@ import nano.command.CommandType;
 import nano.command.Parser;
 import nano.task.Task;
 import nano.task.TaskList;
+import java.util.ArrayList;
 
 /**
  * Runs the Nano chatbot and handles user commands.
@@ -92,6 +93,14 @@ public class Nano {
                         storage.save(tasks);
 
                         ui.showTaskAdded(tasks.getLast(), tasks.size());
+                        break;
+                    }
+
+                    case FIND: {
+                        String keyword = parser.parseFindKeyword(command);
+                        TaskList matchingTasks = tasks.find(keyword);
+
+                        ui.showMatchingTasks(matchingTasks);
                         break;
                     }
 

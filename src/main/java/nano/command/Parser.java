@@ -1,4 +1,10 @@
-package nano;
+package nano.command;
+
+import nano.NanoException;
+import nano.task.Deadline;
+import nano.task.Event;
+import nano.task.Task;
+import nano.task.Todo;
 
 /**
  * Parses user commands and identifies their command types.

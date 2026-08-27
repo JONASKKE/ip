@@ -1,4 +1,4 @@
-package nano;
+package nano.command;
 
 /**
  * Represents the types of commands that Nano can understand.

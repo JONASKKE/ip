@@ -1,4 +1,6 @@
-package nano;
+package nano.task;
+
+import nano.NanoException;
 
 /**
  * Represents a task that can be added to the task list.

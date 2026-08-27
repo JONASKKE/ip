@@ -1,4 +1,6 @@
-package nano;
+package nano.task;
+
+import nano.NanoException;
 
 /**
  * Represents a todo task without a specific date or time.

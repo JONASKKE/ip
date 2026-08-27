@@ -1,5 +1,10 @@
 package nano;
 
+import nano.task.Deadline;
+import nano.task.Event;
+import nano.task.Task;
+import nano.task.TaskList;
+import nano.task.Todo;
 import java.util.Scanner;
 
 /**

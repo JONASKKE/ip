@@ -1,7 +1,8 @@
 package nano.task;
 
-import nano.NanoException;
 import java.util.ArrayList;
+
+import nano.NanoException;
 
 /**
  * Represents the list of tasks managed by Nano.

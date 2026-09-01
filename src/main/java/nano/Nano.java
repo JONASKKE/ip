@@ -4,7 +4,6 @@ import nano.command.CommandType;
 import nano.command.Parser;
 import nano.task.Task;
 import nano.task.TaskList;
-import java.util.ArrayList;
 
 /**
  * Runs the Nano chatbot and handles user commands.
@@ -111,6 +110,6 @@ public class Nano {
                 ui.showMessage("Oops! " + e.getMessage());
             }
         }
-            ui.close();
+        ui.close();
     }
 }

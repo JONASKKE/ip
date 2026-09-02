@@ -150,4 +150,43 @@ public class Parser {
 
         return keyword;
     }
+
+    /**
+     * Parses the user's input into a command.
+     *
+     * @param input user input
+     * @return the command represented by the input
+     * @throws NanoException if the input is invalid
+     */
+    public Command parse(String input) throws NanoException {
+        CommandType commandType = parseCommand(input);
+
+        switch (commandType) {
+            case BYE:
+                return new ByeCommand();
+
+            case LIST:
+                return new ListCommand();
+
+            case MARK:
+                return new MarkCommand(parseTaskNumber(input));
+
+            case UNMARK:
+                return new UnmarkCommand(parseTaskNumber(input));
+
+            case DELETE:
+                return new DeleteCommand(parseTaskNumber(input));
+
+            case FIND:
+                return new FindCommand(parseFindKeyword(input));
+
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                return new AddCommand(parseTask(input));
+
+            default:
+                throw new NanoException("What do you mean?");
+        }
+    }
 }

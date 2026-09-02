@@ -1,0 +1,28 @@
+package nano.command;
+
+import nano.NanoException;
+import nano.Storage;
+import nano.task.Task;
+import nano.task.TaskList;
+
+public class AddCommand implements Command {
+    private final Task task;
+
+    /**
+     * Creates an add command for the given task.
+     *
+     * @param task task to add
+     */
+    public AddCommand(Task task) {
+        this.task = task;
+    }
+
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws NanoException {
+        tasks.add(task);
+        storage.save(tasks);
+
+        return "Got it. Adding " + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
+    }
+}

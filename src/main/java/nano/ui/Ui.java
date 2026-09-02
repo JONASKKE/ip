@@ -1,4 +1,4 @@
-package nano;
+package nano.ui;
 
 import java.util.Scanner;
 

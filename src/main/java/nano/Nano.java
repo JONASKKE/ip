@@ -1,15 +1,27 @@
 package nano;
 
-import nano.command.CommandType;
+import nano.command.Command;
 import nano.command.Parser;
-import nano.task.Task;
 import nano.task.TaskList;
+import nano.ui.Ui;
 
 /**
  * Runs the Nano chatbot and handles user commands.
  */
 public class Nano {
     private static final String DATA_FILE = "./data/nano.txt";
+
+    private final Parser parser = new Parser();
+    private final Storage storage = new Storage(DATA_FILE);
+    private TaskList tasks;
+
+    public Nano() {
+        try {
+            tasks = storage.load();
+        } catch (NanoException e) {
+            tasks = new TaskList();
+        }
+    }
 
     /**
      * Starts the Nano chatbot and processes user commands.
@@ -19,97 +31,33 @@ public class Nano {
      */
     public static void main(String[] args) {
         Ui ui = new Ui();
-        Parser parser = new Parser();
+        Nano nano = new Nano();
 
         ui.showWelcome();
 
-        Storage storage = new Storage(DATA_FILE);
-        TaskList tasks;
-
-        try {
-            tasks = storage.load();
-        } catch (NanoException e) {
-            ui.showMessage("Oops! " + e.getMessage());
-            tasks = new TaskList();
-        }
-
         boolean isRunning = true;
+
         while (isRunning) {
-            String command = ui.readCommand();
-            CommandType commandType = parser.parseCommand(command);
+            String input = ui.readCommand();
 
-            try {
-                switch (commandType) {
-                    case BYE: {
-                        ui.showGoodbye();
-                        isRunning = false;
-                        break;
-                    }
-
-                    case LIST: {
-                        ui.showTasks(tasks);
-                        break;
-                    }
-
-                    case MARK: {
-                        int taskNumber = parser.parseTaskNumber(command);
-                        Task task = tasks.getTask(taskNumber);
-
-                        task.markDone();
-                        storage.save(tasks);
-
-                        ui.showTaskMarked(task);
-                        break;
-                    }
-
-                    case UNMARK: {
-                        int taskNumber = parser.parseTaskNumber(command);
-                        Task task = tasks.getTask(taskNumber);
-
-                        task.markUndone();
-                        storage.save(tasks);
-
-                        ui.showTaskUnmarked(task);
-                        break;
-                    }
-
-                    case DELETE: {
-                        int taskNumber = parser.parseTaskNumber(command);
-                        Task deletedTask = tasks.deleteTask(taskNumber);
-
-                        storage.save(tasks);
-
-                        ui.showTaskDeleted(deletedTask, tasks.size());
-                        break;
-                    }
-
-                    case TODO:
-                    case DEADLINE:
-                    case EVENT: {
-                        Task task = parser.parseTask(command);
-
-                        tasks.add(task);
-                        storage.save(tasks);
-
-                        ui.showTaskAdded(tasks.getLast(), tasks.size());
-                        break;
-                    }
-
-                    case FIND: {
-                        String keyword = parser.parseFindKeyword(command);
-                        TaskList matchingTasks = tasks.find(keyword);
-
-                        ui.showMatchingTasks(matchingTasks);
-                        break;
-                    }
-
-                    default:
-                        throw new NanoException("What do you mean?");
-                }
-            } catch (NanoException e) {
-                ui.showMessage("Oops! " + e.getMessage());
+            if (input.equals("bye")) {
+                ui.showGoodbye();
+                isRunning = false;
+                continue;
             }
+
+            ui.showMessage(nano.getResponse(input));
         }
+
         ui.close();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command command = parser.parse(input);
+            return command.execute(tasks, storage);
+        } catch (NanoException e) {
+            return "Oops! " + e.getMessage();
+        }
     }
 }

@@ -5,6 +5,9 @@ import nano.Storage;
 import nano.task.Task;
 import nano.task.TaskList;
 
+/**
+ * A command that adds a task to the task list.
+ */
 public class AddCommand implements Command {
     private final Task task;
 

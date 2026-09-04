@@ -5,6 +5,9 @@ import nano.Storage;
 import nano.task.Task;
 import nano.task.TaskList;
 
+/**
+ * Represents the mark command.
+ */
 public class MarkCommand implements Command {
     private final int taskNumber;
 

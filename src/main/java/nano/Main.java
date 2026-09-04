@@ -1,7 +1,5 @@
 package nano;
 
-import nano.ui.MainWindow;
-
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -9,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import nano.ui.MainWindow;
 
 /**
  * A GUI for Nano using FXML.
@@ -24,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setNano(nano);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setNano(nano);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

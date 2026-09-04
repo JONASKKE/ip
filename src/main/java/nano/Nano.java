@@ -15,6 +15,9 @@ public class Nano {
     private final Storage storage = new Storage(DATA_FILE);
     private TaskList tasks;
 
+    /**
+     * Creates a Nano chatbot and loads saved tasks.
+     */
     public Nano() {
         try {
             tasks = storage.load();
@@ -52,6 +55,12 @@ public class Nano {
         ui.close();
     }
 
+    /**
+     * Returns Nano's response to the user's input.
+     *
+     * @param input the user's command.
+     * @return Nano's response to the command.
+     */
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);

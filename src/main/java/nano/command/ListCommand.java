@@ -1,6 +1,5 @@
 package nano.command;
 
-import nano.NanoException;
 import nano.Storage;
 import nano.task.TaskList;
 

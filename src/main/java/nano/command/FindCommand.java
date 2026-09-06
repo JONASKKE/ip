@@ -21,7 +21,7 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws NanoException {
+    public String execute(TaskList tasks, Storage storage) {
         TaskList matchingTasks = tasks.find(keyword);
 
         StringBuilder response = new StringBuilder("Here are the matching tasks:");

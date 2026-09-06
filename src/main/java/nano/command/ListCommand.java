@@ -1,6 +1,5 @@
 package nano.command;
 
-import nano.NanoException;
 import nano.Storage;
 import nano.task.TaskList;
 
@@ -11,7 +10,7 @@ import nano.task.TaskList;
 public class ListCommand implements Command {
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws NanoException {
+    public String execute(TaskList tasks, Storage storage) {
         StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {

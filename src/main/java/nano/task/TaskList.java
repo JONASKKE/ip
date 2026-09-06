@@ -36,16 +36,6 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the specified position.
-     *
-     * @param index index of the task to remove.
-     * @return the removed task.
-     */
-    public Task remove(int index) {
-        return tasks.remove(index);
-    }
-
-    /**
      * Returns the task at the specified position.
      *
      * @param index index of the task.
@@ -101,15 +91,6 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return tasks;
-    }
-
-    /**
-     * Returns the last task in the task list.
-     *
-     * @return the last task in the task list.
-     */
-    public Task getLast() {
-        return tasks.get(tasks.size() - 1);
     }
 
     /**

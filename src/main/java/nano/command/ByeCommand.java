@@ -1,6 +1,5 @@
 package nano.command;
 
-import nano.NanoException;
 import nano.Storage;
 import nano.task.TaskList;
 
@@ -10,7 +9,7 @@ import nano.task.TaskList;
 public class ByeCommand implements Command {
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws NanoException {
+    public String execute(TaskList tasks, Storage storage) {
         return "Bye! Hope to see you again soon.";
     }
 }

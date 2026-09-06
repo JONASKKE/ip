@@ -17,6 +17,8 @@ public class MarkCommand implements Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws NanoException {
+        assert tasks != null : "Task list should not be null";
+
         Task task = tasks.getTask(taskNumber);
         task.markDone();
         storage.save(tasks);

@@ -119,6 +119,8 @@ public class TaskList {
      * @return a task list containing all matching tasks.
      */
     public TaskList find(String keyword) {
+        assert keyword != null;
+
         TaskList matchingTasks = new TaskList();
 
         for (Task task : tasks) {

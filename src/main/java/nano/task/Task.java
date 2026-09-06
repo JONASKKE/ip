@@ -58,6 +58,7 @@ public class Task {
      * @return storage representation of this task.
      */
     public String toStorageString() {
+        assert !description.isEmpty();
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 

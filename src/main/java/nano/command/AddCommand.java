@@ -22,6 +22,10 @@ public class AddCommand implements Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws NanoException {
+        assert task != null;
+        assert tasks != null;
+        assert storage != null;
+
         tasks.add(task);
         storage.save(tasks);
 

@@ -64,6 +64,7 @@ public class Nano {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
+            assert command != null;
             return command.execute(tasks, storage);
         } catch (NanoException e) {
             return "Oops! " + e.getMessage();

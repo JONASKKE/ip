@@ -1,6 +1,7 @@
 package nano.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nano.NanoException;
 
@@ -8,7 +9,7 @@ import nano.NanoException;
  * Represents the list of tasks managed by Nano.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Creates an empty task list.
@@ -22,8 +23,8 @@ public class TaskList {
      *
      * @param tasks tasks to add to the list.
      */
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public TaskList(List<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
     }
 
     /**
@@ -99,7 +100,7 @@ public class TaskList {
      *
      * @return the list of tasks.
      */
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
@@ -119,15 +120,14 @@ public class TaskList {
      * @return a task list containing all matching tasks.
      */
     public TaskList find(String keyword) {
-        TaskList matchingTasks = new TaskList();
+        String searchTerm = keyword.toLowerCase();
 
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase()
-                    .contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription()
+                        .toLowerCase()
+                        .contains(searchTerm))
+                .toList();
 
-        return matchingTasks;
+        return new TaskList(matchingTasks);
     }
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import nano.task.Deadline;
@@ -101,11 +100,9 @@ public class Storage {
                 Files.createDirectories(parent);
             }
 
-            ArrayList<String> lines = new ArrayList<>();
-
-            for (Task task : tasks.getTasks()) {
-                lines.add(task.toStorageString());
-            }
+            List<String> lines = tasks.getTasks().stream()
+                    .map(Task::toStorageString)
+                    .toList();
 
             Files.write(filePath, lines);
 

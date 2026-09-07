@@ -37,16 +37,6 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the specified position.
-     *
-     * @param index index of the task to remove.
-     * @return the removed task.
-     */
-    public Task remove(int index) {
-        return tasks.remove(index);
-    }
-
-    /**
      * Returns the task at the specified position.
      *
      * @param index index of the task.
@@ -105,22 +95,15 @@ public class TaskList {
     }
 
     /**
-     * Returns the last task in the task list.
-     *
-     * @return the last task in the task list.
-     */
-    public Task getLast() {
-        return tasks.get(tasks.size() - 1);
-    }
-
-    /**
      * Finds tasks whose descriptions contain the given keyword.
      *
      * @param keyword keyword to search for.
      * @return a task list containing all matching tasks.
      */
     public TaskList find(String keyword) {
-        String searchTerm = keyword.toLowerCase();
+        assert keyword != null;
+
+        TaskList matchingTasks = new TaskList();
 
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription()

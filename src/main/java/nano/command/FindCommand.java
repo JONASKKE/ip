@@ -1,6 +1,5 @@
 package nano.command;
 
-import nano.NanoException;
 import nano.Storage;
 import nano.task.Task;
 import nano.task.TaskList;
@@ -21,7 +20,7 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws NanoException {
+    public String execute(TaskList tasks, Storage storage) {
         TaskList matchingTasks = tasks.find(keyword);
 
         StringBuilder response = new StringBuilder("Here are the matching tasks:");

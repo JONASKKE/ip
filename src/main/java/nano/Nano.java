@@ -28,9 +28,6 @@ public class Nano {
 
     /**
      * Starts the Nano chatbot and processes user commands.
-     *
-     * @param args command-line arguments.
-     * @throws NanoException if an error occurs while loading or saving tasks.
      */
     public static void main(String[] args) {
         Ui ui = new Ui();
@@ -64,6 +61,7 @@ public class Nano {
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
+            assert command != null;
             return command.execute(tasks, storage);
         } catch (NanoException e) {
             return "Oops! " + e.getMessage();

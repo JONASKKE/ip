@@ -101,9 +101,7 @@ public class TaskList {
      * @return a task list containing all matching tasks.
      */
     public TaskList find(String keyword) {
-        assert keyword != null;
-
-        TaskList matchingTasks = new TaskList();
+        String searchTerm = keyword.toLowerCase();
 
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription()

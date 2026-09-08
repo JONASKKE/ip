@@ -19,6 +19,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + getStatusIcon() + " " + getDescription();
+        return "[T]" + getStatusIcon() + " " + getDescription()
+                + " (priority: " + getPriorityText() + ")";
     }
 }

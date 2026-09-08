@@ -52,6 +52,7 @@ public class Event extends Task {
     @Override
     public String toStorageString() {
         return "E | " + (isDone() ? "1" : "0")
+                + " | " + getPriorityText()
                 + " | " + getDescription()
                 + " | " + DateTimeUtil.formatForStorage(from)
                 + " | " + DateTimeUtil.formatForStorage(to);
@@ -61,6 +62,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + getStatusIcon() + " " + getDescription()
                 + " (from: " + DateTimeUtil.formatForDisplay(from)
-                + " to: " + DateTimeUtil.formatForDisplay(to) + ")";
+                + " to: " + DateTimeUtil.formatForDisplay(to) + ")"
+                + " (priority: " + getPriorityText() + ")";
     }
 }

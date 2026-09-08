@@ -3,6 +3,7 @@ package nano.command;
 import nano.NanoException;
 import nano.task.Deadline;
 import nano.task.Event;
+import nano.task.Priority;
 import nano.task.Task;
 import nano.task.Todo;
 
@@ -47,9 +48,14 @@ public class Parser {
         } else if (command.startsWith("event ")
                 || command.equals("event")) {
             return CommandType.EVENT;
+
         } else if (command.startsWith("find ")
                 || command.equals("find")) {
             return CommandType.FIND;
+
+        } else if (command.startsWith("priority ")
+                || command.equals("priority")) {
+            return CommandType.PRIORITY;
         }
 
         return CommandType.UNKNOWN;
@@ -152,6 +158,41 @@ public class Parser {
     }
 
     /**
+     * Parses a priority command.
+     *
+     * @param command user command containing a task number and priority level.
+     * @return the priority command.
+     * @throws NanoException if the command is invalid.
+     */
+    public Command parsePriorityCommand(String command)
+            throws NanoException {
+        String[] parts = command.split("\\s+");
+
+        if (parts.length != 3) {
+            throw new NanoException(
+                    "Usage: priority <task number> <high|normal|low>"
+            );
+        }
+
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new NanoException("The task number must be a number.");
+        }
+
+        try {
+            Priority priority = Priority.valueOf(parts[2].toUpperCase());
+            return new PriorityCommand(taskNumber, priority);
+        } catch (IllegalArgumentException e) {
+            throw new NanoException(
+                    "Priority must be high, normal, or low."
+            );
+        }
+    }
+
+    /**
      * Parses the user's input into a command.
      *
      * @param input user input
@@ -179,6 +220,9 @@ public class Parser {
 
             case FIND:
                 return new FindCommand(parseFindKeyword(input));
+
+            case PRIORITY:
+                return parsePriorityCommand(input);
 
             case TODO:
             case DEADLINE:

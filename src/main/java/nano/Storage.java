@@ -8,6 +8,7 @@ import java.util.List;
 
 import nano.task.Deadline;
 import nano.task.Event;
+import nano.task.Priority;
 import nano.task.Task;
 import nano.task.TaskList;
 import nano.task.Todo;
@@ -52,7 +53,8 @@ public class Storage {
 
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
-                String description = parts[2];
+                Priority priority = Priority.valueOf(parts[2].toUpperCase());
+                String description = parts[3];
 
                 Task task;
 
@@ -75,7 +77,7 @@ public class Storage {
                 if (isDone) {
                     task.markDone();
                 }
-
+                task.setPriority(priority);
                 tasks.add(task);
             }
 

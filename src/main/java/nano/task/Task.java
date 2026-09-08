@@ -8,6 +8,7 @@ import nano.NanoException;
 public class Task {
     private String description;
     private boolean isDone;
+    private Priority priority;
 
     /**
      * Represents a task that can be marked as done or not done.
@@ -15,6 +16,7 @@ public class Task {
     public Task(String description) throws NanoException {
         this.description = description.trim();
         this.isDone = false;
+        this.priority = Priority.NORMAL;
 
         if (this.description.isEmpty()) {
             throw new NanoException("The description cannot be empty.");
@@ -52,6 +54,14 @@ public class Task {
         return isDone;
     }
 
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public String getPriorityText() {
+        return priority.toString().toLowerCase();
+    }
+
     /**
      * Returns this task in the format used for saving it to the data file.
      *
@@ -59,11 +69,14 @@ public class Task {
      */
     public String toStorageString() {
         assert !description.isEmpty();
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + (isDone ? "1" : "0")
+                + " | " + getPriorityText()
+                + " | " + description;
     }
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + getDescription();
+        return getStatusIcon() + " " + getDescription()
+                + " (priority: " + getPriorityText() + ")";
     }
 }

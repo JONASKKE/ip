@@ -24,27 +24,66 @@ public class Event extends Task {
     public Event(String description, String from, String to) throws NanoException {
         super(description);
 
+        validateTimesArePresent(from, to);
+
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
+
+        validateTimeOrder();
+    }
+
+    /**
+     * Ensures that both event times are provided.
+     *
+     * @param from event start time.
+     * @param to event end time.
+     * @throws NanoException if either time is empty.
+     */
+    private void validateTimesArePresent(String from, String to)
+            throws NanoException {
         if (from.trim().isEmpty()) {
-            throw new NanoException("The /from time of an event cannot be empty.");
+            throw new NanoException(
+                    "The /from time of an event cannot be empty."
+            );
         }
 
         if (to.trim().isEmpty()) {
-            throw new NanoException("The /to time of an event cannot be empty.");
-        }
-
-        try {
-            this.from = LocalDateTime.parse(
-                    from.trim(),
-                    DateTimeUtil.STORAGE_FORMATTER
+            throw new NanoException(
+                    "The /to time of an event cannot be empty."
             );
+        }
+    }
 
-            this.to = LocalDateTime.parse(
-                    to.trim(),
+    /**
+     * Parses an event date and time.
+     *
+     * @param dateTimeText date and time in yyyy-MM-dd HHmm format.
+     * @return the parsed date and time.
+     * @throws NanoException if the value is not a valid date and time.
+     */
+    private LocalDateTime parseDateTime(String dateTimeText)
+            throws NanoException {
+        try {
+            return LocalDateTime.parse(
+                    dateTimeText.trim(),
                     DateTimeUtil.STORAGE_FORMATTER
             );
         } catch (DateTimeParseException e) {
             throw new NanoException(
                     "Event dates must use yyyy-MM-dd HHmm format."
+            );
+        }
+    }
+
+    /**
+     * Ensures that the event ends after it starts.
+     *
+     * @throws NanoException if the end time is before or equal to the start time.
+     */
+    private void validateTimeOrder() throws NanoException {
+        if (!to.isAfter(from)) {
+            throw new NanoException(
+                    "The event must end after it starts."
             );
         }
     }

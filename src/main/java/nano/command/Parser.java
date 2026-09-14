@@ -131,12 +131,20 @@ public class Parser {
      * @throws NanoException if the task number is not a valid number.
      */
     public int parseTaskNumber(String command) throws NanoException {
-        try {
-            return Integer.parseInt(
-                    command.substring(command.indexOf(" ") + 1).trim()
+        String[] parts = command.trim().split("\\s+");
+
+        if (parts.length != 2) {
+            throw new NanoException(
+                    "Please provide exactly one task number."
             );
+        }
+
+        try {
+            return Integer.parseInt(parts[1]);
         } catch (NumberFormatException e) {
-            throw new NanoException("The task number must be a number.");
+            throw new NanoException(
+                    "The task number must be a number."
+            );
         }
     }
 

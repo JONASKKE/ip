@@ -19,7 +19,6 @@ public class ListCommand implements Command {
                     .append(tasks.get(i))
                     .append("\n");
         }
-
         return response.toString();
     }
 }

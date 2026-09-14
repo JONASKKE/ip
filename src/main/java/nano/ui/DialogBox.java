@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -35,6 +37,9 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setWrapText(true);
+        dialog.setTextOverrun(OverrunStyle.CLIP);
+        dialog.setMaxHeight(Double.MAX_VALUE);
         displayPicture.setImage(img);
     }
 
@@ -47,6 +52,17 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
+
+        getChildren().remove(dialog);
+
+        ScrollPane responseScrollPane = new ScrollPane(dialog);
+        responseScrollPane.setFitToWidth(true);
+        responseScrollPane.setPrefHeight(100);
+        responseScrollPane.setMaxHeight(100);
+        responseScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        responseScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        getChildren().add(responseScrollPane);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

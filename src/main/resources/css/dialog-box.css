@@ -8,6 +8,8 @@
     -fx-font-size: 17px;
     -fx-font-family: "Arial";
     -fx-text-fill: #26324a;
+    -fx-wrap-text: true;
+    -fx-text-overrun: clip;
 }
 
 .reply-label {

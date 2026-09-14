@@ -22,14 +22,14 @@ public class Event extends Task {
      * @throws NanoException if the description, start time, or end time is empty.
      */
     public Event(String description, String from, String to) throws NanoException {
-            super(description);
+        super(description);
 
-            validateTimesArePresent(from, to);
+        validateTimesArePresent(from, to);
 
-            this.from = parseDateTime(from);
-            this.to = parseDateTime(to);
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
 
-            validateTimeOrder();
+        validateTimeOrder();
     }
 
     /**

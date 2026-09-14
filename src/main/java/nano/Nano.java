@@ -64,7 +64,7 @@ public class Nano {
         }
 
         try {
-            Command command = parser.parse(input);
+            Command command = parser.parse(input.trim());
             assert command != null;
             return command.execute(tasks, storage);
         } catch (NanoException e) {

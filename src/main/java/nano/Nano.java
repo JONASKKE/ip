@@ -22,6 +22,10 @@ public class Nano {
         try {
             tasks = storage.load();
         } catch (NanoException e) {
+            System.out.println(
+                    "Warning: Could not load saved tasks. "
+                            + "Starting with an empty list."
+            );
             tasks = new TaskList();
         }
     }

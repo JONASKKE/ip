@@ -62,12 +62,12 @@ public class Storage {
                     task = new Todo(description);
 
                 } else if (type.equals("D")) {
-                    String by = parts[3];
+                    String by = parts[4];
                     task = new Deadline(description, by);
 
                 } else if (type.equals("E")) {
-                    String from = parts[3];
-                    String to = parts[4];
+                    String from = parts[4];
+                    String to = parts[5];
                     task = new Event(description, from, to);
 
                 } else {

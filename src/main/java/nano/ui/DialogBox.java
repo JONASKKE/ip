@@ -3,6 +3,7 @@ package nano.ui;
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,8 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.OverrunStyle;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -38,8 +38,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         dialog.setWrapText(true);
-        dialog.setTextOverrun(OverrunStyle.CLIP);
-        dialog.setMaxHeight(Double.MAX_VALUE);
         displayPicture.setImage(img);
     }
 
@@ -51,18 +49,19 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.getStyleClass().add("reply-label");
+
+        TextArea response = new TextArea(dialog.getText());
+        response.setEditable(false);
+        response.setFocusTraversable(false);
+        response.setWrapText(true);
+        response.setPrefHeight(100);
+        response.setMaxHeight(100);
+        var availableWidth = Bindings.max(0, widthProperty().subtract(120));
+        response.maxWidthProperty().bind(availableWidth);
+        response.getStyleClass().add("reply-label");
 
         getChildren().remove(dialog);
-
-        ScrollPane responseScrollPane = new ScrollPane(dialog);
-        responseScrollPane.setFitToWidth(true);
-        responseScrollPane.setPrefHeight(100);
-        responseScrollPane.setMaxHeight(100);
-        responseScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        responseScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        getChildren().add(responseScrollPane);
+        getChildren().add(response);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

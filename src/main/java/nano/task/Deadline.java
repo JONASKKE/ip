@@ -39,6 +39,7 @@ public class Deadline extends Task {
     @Override
     public String toStorageString() {
         return "D | " + (isDone() ? "1" : "0")
+                + " | " + getPriorityText()
                 + " | " + getDescription()
                 + " | " + DateTimeUtil.formatForStorage(by);
     }
@@ -48,6 +49,7 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + getStatusIcon()
                 + " " + getDescription()
-                + " (by: " + DateTimeUtil.formatForDisplay(by) + ")";
+                + " (by: " + DateTimeUtil.formatForDisplay(by) + ")"
+                + " (priority: " + getPriorityText() + ")";
     }
 }

@@ -101,7 +101,11 @@ public class TaskList {
      * @return a task list containing all matching tasks.
      */
     public TaskList find(String keyword) {
+<<<<<<< HEAD
         assert keyword != null;
+=======
+        String searchTerm = keyword.toLowerCase();
+>>>>>>> branch-BCD-Extension
 
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription()

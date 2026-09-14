@@ -103,12 +103,10 @@ public class TaskList {
     public TaskList find(String keyword) {
         assert keyword != null;
 
-        TaskList matchingTasks = new TaskList();
-
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription()
                         .toLowerCase()
-                        .contains(searchTerm))
+                        .contains(keyword))
                 .toList();
 
         return new TaskList(matchingTasks);

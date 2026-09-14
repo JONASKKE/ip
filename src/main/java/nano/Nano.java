@@ -59,6 +59,10 @@ public class Nano {
      * @return Nano's response to the command.
      */
     public String getResponse(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            return "Oops! Please enter a command.";
+        }
+
         try {
             Command command = parser.parse(input);
             assert command != null;

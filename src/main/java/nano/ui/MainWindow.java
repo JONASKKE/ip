@@ -71,7 +71,7 @@ public class MainWindow extends AnchorPane {
 
         userInput.clear();
 
-        if (input.equals("bye")) {
+        if (input.trim().equals("bye")) {
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> {
                 Stage stage = (Stage) userInput.getScene().getWindow();

@@ -44,7 +44,7 @@ public class Nano {
         while (isRunning) {
             String input = ui.readCommand();
 
-            if (input.equals("bye")) {
+            if (input.trim().equals("bye")) {
                 ui.showGoodbye();
                 isRunning = false;
                 continue;

@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nano.Nano;
@@ -34,7 +35,7 @@ public class MainWindow extends AnchorPane {
             new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
 
     private Image nanoImage =
-            new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+            new Image(this.getClass().getResourceAsStream("/images/DaNano.png"));
 
     @FXML
     public void initialize() {
@@ -46,6 +47,13 @@ public class MainWindow extends AnchorPane {
      */
     public void setNano(Nano nano) {
         this.nano = nano;
+        DialogBox welcomeDialog = DialogBox.getNanoDialog(
+                Ui.getWelcomeMessage(), nanoImage);
+        welcomeDialog.getDialogLabel().fontProperty().unbind();
+        welcomeDialog.getDialogLabel().setFont(Font.font("Courier New", 18));
+        welcomeDialog.getDialogLabel().setWrapText(false);
+        welcomeDialog.fitTextWidth();
+        dialogContainer.getChildren().add(welcomeDialog);
     }
 
     /**

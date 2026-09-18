@@ -1,92 +1,139 @@
-# Nano User Guide
+<div align="center">
 
-Nano is a simple task-management chatbot with a JavaFX graphical user interface. You can add, view, search, update, and delete tasks using commands typed into the message box.
+# ✦ NANO ✦
 
-## Getting started
+### Your calm, command-line companion for getting things done.
+
+<img src="https://img.shields.io/badge/Java-25-5865D9?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 25">
+<img src="https://img.shields.io/badge/JavaFX-GUI-AEBFF0?style=for-the-badge" alt="JavaFX GUI">
+<img src="https://img.shields.io/badge/status-student%20project-DCE6FF?style=for-the-badge" alt="Student project">
+
+> **Plan less. Finish more.**
+
+</div>
+
+## 🌌 Meet Nano
+
+Nano is a lightweight task-management chatbot with a friendly JavaFX interface. Type natural commands into the message box to organise your tasks, deadlines, events, and priorities.
+
+| ✨ What Nano does | 🎯 Why it helps |
+| --- | --- |
+| Adds todos, deadlines, and events | Capture tasks quickly |
+| Lists and searches tasks | Find what matters |
+| Tracks completion and priority | Keep work organised |
+| Saves tasks automatically | Continue where you left off |
+
+## 🚀 Start here
 
 1. Open the project in IntelliJ IDEA.
-2. Configure the project to use JDK 25.
+2. Configure the project to use **JDK 25**.
 3. Run `src/main/java/nano/Launcher.java`.
-4. Nano opens with a welcome message. Type a command and click **Send** or press **Enter**.
+4. Type a command and click **Send** or press **Enter**.
 
-Nano automatically saves tasks in `data/nano.txt`, so they are available the next time you start the application.
+Nano saves your tasks automatically in `data/nano.txt`.
 
-## Adding tasks
+## 🧭 Your first three commands
 
-### To-do tasks
+```text
+todo read a book
+list
+mark 1
+```
+
+That creates a task, displays your task list, and marks task 1 as completed.
+
+## 📝 Add tasks
+
+<details>
+<summary><strong>To-do</strong> — a task without a date</summary>
 
 ```text
 todo read a book
 ```
 
-### Deadlines
+</details>
 
-Use `/by` with the format `yyyy-MM-dd HHmm`:
+<details>
+<summary><strong>Deadline</strong> — a task due at a specific time</summary>
+
+Use the format `yyyy-MM-dd HHmm` after `/by`.
 
 ```text
 deadline submit assignment /by 2026-10-01 1800
 ```
 
-### Events
+</details>
 
-Use `/from` and `/to` for the start and end times:
+<details>
+<summary><strong>Event</strong> — something with a start and end time</summary>
+
+Use `/from` and `/to` with the format `yyyy-MM-dd HHmm`.
 
 ```text
 event project meeting /from 2026-10-02 1400 /to 2026-10-02 1530
 ```
 
-## Viewing and searching tasks
+</details>
 
-Use `list` to display every saved task:
+## 🔎 View and search
+
+See every saved task:
 
 ```text
 list
 ```
 
-Use `find <keyword>` to search for matching tasks. Searches are case-insensitive.
-
-## Updating tasks
+Search descriptions with a case-insensitive keyword:
 
 ```text
-mark 1
-unmark 1
-priority 1 high
+find assignment
 ```
 
-These commands mark task 1 as completed, mark it unfinished, or set its priority. Priority can be `high`, `normal`, or `low`.
+## ⚡ Update your list
 
-## Deleting tasks
+| Action | Example |
+| --- | --- |
+| Complete a task | `mark 1` |
+| Reopen a task | `unmark 1` |
+| Set priority | `priority 1 high` |
+| Remove a task | `delete 1` |
 
-Delete a task by its number:
+Priority values are `high`, `normal`, and `low`.
 
-```text
-delete 1
-```
-
-Nano confirms the deleted task and shows how many tasks remain.
-
-## Exiting Nano
-
-Type `bye` to display Nano's goodbye banner and close the application after a short delay.
-
-## Command summary
+## 📚 Command deck
 
 | Command | Purpose |
 | --- | --- |
-| `todo <description>` | Add a to-do task |
+| `todo <description>` | Add a to-do |
 | `deadline <description> /by <date and time>` | Add a deadline |
 | `event <description> /from <start> /to <end>` | Add an event |
 | `list` | Show all tasks |
 | `find <keyword>` | Search for matching tasks |
-| `mark <task number>` | Mark a task completed |
+| `mark <task number>` | Mark a task complete |
 | `unmark <task number>` | Mark a task unfinished |
 | `priority <task number> <high\|normal\|low>` | Change priority |
 | `delete <task number>` | Delete a task |
-| `bye` | Display the goodbye message and exit |
+| `bye` | Show the goodbye banner and exit |
 
-## Troubleshooting
+## 👋 Signing off
 
-- Write commands in lowercase.
-- Use the task number shown by `list` for update and delete commands.
+When your work is done, type:
+
+```text
+bye
+```
+
+Nano displays its goodbye banner and closes after a short delay.
+
+## 🛠️ Quick fixes
+
+- Use lowercase commands.
+- Use the task number shown by `list` for `mark`, `unmark`, `priority`, and `delete`.
 - Check the date format for deadlines and events.
-- If a command is invalid, Nano displays an explanatory error message.
+- If Nano rejects a command, read the response and adjust the syntax.
+
+<div align="center">
+
+### Built with Java · Designed for focus · Powered by Nano
+
+</div>

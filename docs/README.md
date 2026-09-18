@@ -40,46 +40,38 @@ Nano saves your tasks automatically in `data/nano.txt`.
 <details>
 <summary><strong>To-do</strong> — a task without a date</summary>
 
-Use a to-do for a task that does not need a specific date or time. Nano stores the description and gives the task a number.
+<p>Use a to-do for a task that does not need a specific date or time. Nano stores the description and gives the task a number.</p>
 
-```text
-todo read a book
-```
+<pre><code>todo read a book</code></pre>
 
-Example response:
+<p>Example response:</p>
 
-```text
-Got it. Adding [ ] read a book (priority: normal)
-Now you have 1 tasks in the list.
-```
+<pre><code>Got it. Adding [ ] read a book (priority: normal)
+Now you have 1 tasks in the list.</code></pre>
 
-The description cannot be empty.
+<p>The description cannot be empty.</p>
 
 </details>
 
 <details>
 <summary><strong>Deadline</strong> — a task due at a specific time</summary>
 
-Use `/by` to attach a due date and time. The required format is `yyyy-MM-dd HHmm`.
+<p>Use <code>/by</code> to attach a due date and time. The required format is <code>yyyy-MM-dd HHmm</code>.</p>
 
-```text
-deadline submit assignment /by 2026-10-01 1800
-```
+<pre><code>deadline submit assignment /by 2026-10-01 1800</code></pre>
 
-Nano displays the deadline when you use `list`. A deadline must include a valid date and time.
+<p>Nano displays the deadline when you use <code>list</code>. A deadline must include a valid date and time.</p>
 
 </details>
 
 <details>
 <summary><strong>Event</strong> — something with a start and end time</summary>
 
-Use `/from` and `/to` to define the start and end of an event. Both sections are required and must use the format `yyyy-MM-dd HHmm`.
+<p>Use <code>/from</code> and <code>/to</code> to define the start and end of an event. Both sections are required and must use the format <code>yyyy-MM-dd HHmm</code>.</p>
 
-```text
-event project meeting /from 2026-10-02 1400 /to 2026-10-02 1530
-```
+<pre><code>event project meeting /from 2026-10-02 1400 /to 2026-10-02 1530</code></pre>
 
-The `/from` section must come before `/to`, and the end time must be later than the start time.
+<p>The <code>/from</code> section must come before <code>/to</code>, and the end time must be later than the start time.</p>
 
 </details>
 
@@ -184,6 +176,6 @@ Nano displays its goodbye banner and closes after a short delay.
 
 <div align="center">
 
-### Built with Java · Designed for focus · Powered by Nano
+<h3>Built with Java · Designed for focus · Powered by Nano<h3>
 
 </div>

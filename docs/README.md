@@ -176,6 +176,6 @@ Nano displays its goodbye banner and closes after a short delay.
 
 <div align="center">
 
-<h3>Built with Java · Designed for focus · Powered by Nano<h3>
+<h3>Built with Java · Designed for focus · Powered by Nano</h3>
 
 </div>

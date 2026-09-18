@@ -1,48 +1,41 @@
 <div align="center">
 
-# ✦ NANO ✦
+# ✦ Nano user guide ✦
 
 ### Your calm, command-line companion for getting things done.
-
-<img src="https://img.shields.io/badge/Java-25-5865D9?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 25">
-<img src="https://img.shields.io/badge/JavaFX-GUI-AEBFF0?style=for-the-badge" alt="JavaFX GUI">
-<img src="https://img.shields.io/badge/status-student%20project-DCE6FF?style=for-the-badge" alt="Student project">
 
 > **Plan less. Finish more.**
 
 </div>
 
-## 🌌 Meet Nano
+## Meet Nano
 
 Nano is a lightweight task-management chatbot with a friendly JavaFX interface. Type natural commands into the message box to organise your tasks, deadlines, events, and priorities.
 
-| ✨ What Nano does | 🎯 Why it helps |
+| What Nano does | Why it helps |
 | --- | --- |
 | Adds todos, deadlines, and events | Capture tasks quickly |
 | Lists and searches tasks | Find what matters |
 | Tracks completion and priority | Keep work organised |
 | Saves tasks automatically | Continue where you left off |
 
-## 🚀 Start here
+## Start here
 
-1. Open the project in IntelliJ IDEA.
-2. Configure the project to use **JDK 25**.
-3. Run `src/main/java/nano/Launcher.java`.
+1. Install **JDK 25** if it is not already installed.
+2. Download the provided `nano.jar` file.
+3. Double-click the JAR file to launch Nano, or run it from a terminal:
+
+```bash
+java -jar build/libs/nano.jar
+```
+
 4. Type a command and click **Send** or press **Enter**.
 
 Nano saves your tasks automatically in `data/nano.txt`.
 
-## 🧭 Your first three commands
+<h2 style="color: #5865D9;">Features</h2>
 
-```text
-todo read a book
-list
-mark 1
-```
-
-That creates a task, displays your task list, and marks task 1 as completed.
-
-## 📝 Add tasks
+## Add tasks
 
 <details>
 <summary><strong>To-do</strong> — a task without a date</summary>
@@ -75,7 +68,7 @@ event project meeting /from 2026-10-02 1400 /to 2026-10-02 1530
 
 </details>
 
-## 🔎 View and search
+## View and search
 
 See every saved task:
 
@@ -86,10 +79,10 @@ list
 Search descriptions with a case-insensitive keyword:
 
 ```text
-find assignment
+find something
 ```
 
-## ⚡ Update your list
+## Update your list
 
 | Action | Example |
 | --- | --- |
@@ -100,7 +93,7 @@ find assignment
 
 Priority values are `high`, `normal`, and `low`.
 
-## 📚 Command deck
+## Command deck
 
 | Command | Purpose |
 | --- | --- |
@@ -115,7 +108,7 @@ Priority values are `high`, `normal`, and `low`.
 | `delete <task number>` | Delete a task |
 | `bye` | Show the goodbye banner and exit |
 
-## 👋 Signing off
+## Signing off
 
 When your work is done, type:
 
@@ -125,7 +118,7 @@ bye
 
 Nano displays its goodbye banner and closes after a short delay.
 
-## 🛠️ Quick fixes
+## Quick fixes
 
 - Use lowercase commands.
 - Use the task number shown by `list` for `mark`, `unmark`, `priority`, and `delete`.

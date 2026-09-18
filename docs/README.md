@@ -1,10 +1,10 @@
 <div align="center">
 
-# ✦ Nano user guide ✦
+<h1>✦ Nano user guide ✦</h1>
 
-### Your calm, command-line companion for getting things done.
+<h3>Your calm, command-line companion for getting things done.</h3>
 
-> **Plan less. Finish more.**
+<p><strong>Plan less. Finish more.</strong></p>
 
 </div>
 
@@ -40,31 +40,46 @@ Nano saves your tasks automatically in `data/nano.txt`.
 <details>
 <summary><strong>To-do</strong> — a task without a date</summary>
 
+Use a to-do for a task that does not need a specific date or time. Nano stores the description and gives the task a number.
+
 ```text
 todo read a book
 ```
+
+Example response:
+
+```text
+Got it. Adding [ ] read a book (priority: normal)
+Now you have 1 tasks in the list.
+```
+
+The description cannot be empty.
 
 </details>
 
 <details>
 <summary><strong>Deadline</strong> — a task due at a specific time</summary>
 
-Use the format `yyyy-MM-dd HHmm` after `/by`.
+Use `/by` to attach a due date and time. The required format is `yyyy-MM-dd HHmm`.
 
 ```text
 deadline submit assignment /by 2026-10-01 1800
 ```
+
+Nano displays the deadline when you use `list`. A deadline must include a valid date and time.
 
 </details>
 
 <details>
 <summary><strong>Event</strong> — something with a start and end time</summary>
 
-Use `/from` and `/to` with the format `yyyy-MM-dd HHmm`.
+Use `/from` and `/to` to define the start and end of an event. Both sections are required and must use the format `yyyy-MM-dd HHmm`.
 
 ```text
 event project meeting /from 2026-10-02 1400 /to 2026-10-02 1530
 ```
+
+The `/from` section must come before `/to`, and the end time must be later than the start time.
 
 </details>
 
@@ -84,6 +99,8 @@ find something
 
 ## Update your list
 
+Every task receives a number when it is added. Use that number to update the task later.
+
 | Action | Example |
 | --- | --- |
 | Complete a task | `mark 1` |
@@ -91,7 +108,47 @@ find something
 | Set priority | `priority 1 high` |
 | Remove a task | `delete 1` |
 
-Priority values are `high`, `normal`, and `low`.
+### Completion status
+
+Use `mark` when you finish a task:
+
+```text
+mark 1
+```
+
+Nano changes the task's status to completed. If you need to work on it again, use:
+
+```text
+unmark 1
+```
+
+### Priority levels
+
+Every new task starts with `normal` priority. Change it with:
+
+```text
+priority 1 high
+```
+
+Nano supports three priority levels:
+
+| Priority | Use it for |
+| --- | --- |
+| `high` | Urgent or important tasks |
+| `normal` | Regular tasks and activities |
+| `low` | Tasks that can wait |
+
+Priority is shown when tasks are listed and is saved between sessions. Only `high`, `normal`, and `low` are accepted.
+
+### Removing tasks
+
+Delete a task permanently by using its number:
+
+```text
+delete 1
+```
+
+Nano confirms the deleted task and updates the number of remaining tasks. Deleting a task cannot be undone, so check the task number before confirming the command.
 
 ## Command deck
 
